@@ -1,4 +1,3 @@
-
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -15,17 +14,18 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException; 
 import javax.swing.*;
-import sun.audio.*;
+//import sun.audio.*;
 import java.io.*;
 import java.awt.*;
+import javax.sound.*;
 
 public class Driver {
 
-	private static AudioStream theStream;
+	//private static AudioStream theStream;
 	
     public static void main(String[] args) {
         new Driver();
-        try
+        /*try
         {
             theStream = new AudioStream(new FileInputStream("src//tetris.wav"));
             AudioPlayer.player.start(theStream);
@@ -35,7 +35,7 @@ public class Driver {
         {
         	e.printStackTrace();
         	System.out.println("reached (exception)");
-        } 
+        } */
     }
     
     public Driver() {
@@ -120,14 +120,14 @@ public class Driver {
 
         @Override
         public Dimension getPreferredSize() {
-            return new Dimension(200, 200);
+            return new Dimension(400, 400);
         }
 
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g.create();
             
-            g2d.drawRect(xPos, yPos, 10, 10);
+            g2d.drawRect(xPos, yPos, 16, 16);
             g2d.dispose();
         }
 
