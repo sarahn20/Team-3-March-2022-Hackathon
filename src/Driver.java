@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -15,10 +16,28 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import javax.swing.*;
+import sun.audio.*;
+import java.io.*;
+import java.awt.*;
+
 public class Driver {
 
+	private static AudioStream theStream;
+	
     public static void main(String[] args) {
         new Driver();
+        try
+        {
+            theStream = new AudioStream(new FileInputStream("src//tetris.wav"));
+            AudioPlayer.player.start(theStream);
+            System.out.println("reached");
+        }
+        catch(Exception e)
+        {
+        	e.printStackTrace();
+        	System.out.println("reached (exception)");
+        } 
     }
 
     public Driver() {
@@ -45,8 +64,8 @@ public class Driver {
 
         private int xPos;
         private int yPos;
-        private int x2Pos = 100;
-        private int y2Pos= 100;
+        private int x2Pos = 580;
+        private int y2Pos= 580;
         Random rand = new Random();
         public TestPane() {
             Action left2Action = new AbstractAction() {
@@ -230,17 +249,22 @@ public class Driver {
 
         @Override
         public Dimension getPreferredSize() {
-            return new Dimension(200, 200);
+            return new Dimension(600, 600);
         }
 
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g.create();
             Graphics2D g3d = (Graphics2D) g.create();
-            g3d.drawRect(x2Pos, y2Pos, 10, 10);
-            Graphics2D g4d = (Graphics2D) g.create();
-            g3d.drawRect(y2Pos, x2Pos, 10, 10);
-            g2d.drawRect(xPos, yPos, 10, 10);
+            g2d.setColor(Color.BLUE);
+			g2d.fillRect(xPos,yPos, 20,20);
+            g3d.setColor(Color.RED);
+			g3d.fillRect(x2Pos, y2Pos, 20, 20);
+			g3d.fillRect(y2Pos, x2Pos, 20, 20);
+            g3d.drawRect(x2Pos, y2Pos, 20, 20);
+            g3d.drawRect(y2Pos, x2Pos, 20, 20);
+            g2d.drawRect(xPos, yPos, 20, 20);
+            setBackground(Color.BLACK);
             g2d.dispose();
             g3d.dispose();
         }
