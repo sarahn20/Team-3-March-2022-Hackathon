@@ -1,3 +1,4 @@
+
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -12,14 +13,31 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.UnsupportedLookAndFeelException; 
+import javax.swing.*;
+import sun.audio.*;
+import java.io.*;
+import java.awt.*;
 
 public class Driver {
 
+	private static AudioStream theStream;
+	
     public static void main(String[] args) {
         new Driver();
+        try
+        {
+            theStream = new AudioStream(new FileInputStream("src//tetris.wav"));
+            AudioPlayer.player.start(theStream);
+            System.out.println("reached");
+        }
+        catch(Exception e)
+        {
+        	e.printStackTrace();
+        	System.out.println("reached (exception)");
+        } 
     }
-
+    
     public Driver() {
         EventQueue.invokeLater(new Runnable() {
             @Override
