@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.Random;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
@@ -44,8 +46,9 @@ public class Test {
 
         private int xPos;
         private int yPos;
-        private int x2Pos;
-        private int y2Pos;
+        private int x2Pos = 100;
+        private int y2Pos= 100;
+        Random rand = new Random();
         public TestPane() {
             Action left2Action = new AbstractAction() {
                 @Override
@@ -96,6 +99,21 @@ public class Test {
                         xPos = 0;
                     }
                     repaint();
+                    if(yPos == y2Pos  && xPos==x2Pos)
+                    {
+                    	yPos = 0;
+                    	xPos = 0;
+                    }
+                    if(xPos < x2Pos)
+                    {
+                        int int_random = rand.nextInt(10 + 5) - 5;
+                        x2Pos -= int_random;
+                    }
+                    else
+                    {
+                        int int_random = rand.nextInt(10 + 5) - 5;
+                        x2Pos += int_random;
+                    }
                 }
             };
             Action rightAction = new AbstractAction() {
@@ -106,6 +124,22 @@ public class Test {
                         xPos = getWidth() - 10;
                     }
                     repaint();
+                    if(yPos == y2Pos  && xPos==x2Pos)
+                    {
+                    	yPos = 0;
+                    	xPos = 0;
+                    }
+                    if(xPos > x2Pos)
+                    {
+                        int int_random = rand.nextInt(10 + 5) - 5;
+                        x2Pos += int_random;
+                    }
+                    else
+                    {
+                        int int_random = rand.nextInt(10 + 5) - 5;
+                        x2Pos -= int_random;
+                    }
+
                 }
             };
             Action downAction = new AbstractAction() {
@@ -116,6 +150,23 @@ public class Test {
                         yPos = getWidth() - 10;
                     }
                     repaint();
+                    if(yPos == y2Pos  && xPos==x2Pos)
+                    {
+                    	yPos = 0;
+                    	xPos = 0;
+                    }
+                    if(yPos > y2Pos)
+                    {
+                    	
+                        int int_random = rand.nextInt(10 + 5) - 5;
+                        y2Pos += int_random;
+                    }
+                    else
+                    {
+                        int int_random = rand.nextInt(10 + 5) - 5;
+                        y2Pos -= int_random;	
+                    }
+
                 }
             };
             Action upAction = new AbstractAction() {
@@ -126,17 +177,41 @@ public class Test {
                         yPos = 0;
                     }
                     repaint();
+                    if(yPos == y2Pos  && xPos==x2Pos)
+                    {
+                    	yPos = 0;
+                    	xPos = 0;
+                    }
+                    //generate random values from 0-24
+                    //random.nextInt(30 + 10) - 10;
+                    if(yPos< y2Pos)
+                    {
+                        int int_random = rand.nextInt(10 + 5) - 5;
+                        y2Pos -= int_random;                    	
+                    }
+                    else
+                    {
+                        int int_random = rand.nextInt(10 + 5) - 5;
+                        y2Pos += int_random; 
+                    }
+
                 }
+ 
             };
 
             bindKeyStroke(WHEN_IN_FOCUSED_WINDOW, "move.left", KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), leftAction);
             bindKeyStroke(WHEN_IN_FOCUSED_WINDOW, "move.right", KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), rightAction);
             bindKeyStroke(WHEN_IN_FOCUSED_WINDOW, "move.up", KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), upAction);
             bindKeyStroke(WHEN_IN_FOCUSED_WINDOW, "move.down", KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), downAction);
+            //////////////////////////////////////////////////////////////
+
+            
+            /*
             bindKeyStroke2(WHEN_IN_FOCUSED_WINDOW, "move.left2", KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), left2Action);
             bindKeyStroke2(WHEN_IN_FOCUSED_WINDOW, "move.right2", KeyStroke.getKeyStroke(KeyEvent.VK_D, 0), right2Action);
             bindKeyStroke2(WHEN_IN_FOCUSED_WINDOW, "move.up2", KeyStroke.getKeyStroke(KeyEvent.VK_W, 0), up2Action);
             bindKeyStroke2(WHEN_IN_FOCUSED_WINDOW, "move.down2", KeyStroke.getKeyStroke(KeyEvent.VK_S, 0), down2Action);
+            */
         }
 
         protected void bindKeyStroke(int condition, String name, KeyStroke keyStroke, Action action) {
@@ -164,6 +239,8 @@ public class Test {
             Graphics2D g2d = (Graphics2D) g.create();
             Graphics2D g3d = (Graphics2D) g.create();
             g3d.drawRect(x2Pos, y2Pos, 10, 10);
+            Graphics2D g4d = (Graphics2D) g.create();
+            g3d.drawRect(y2Pos, x2Pos, 10, 10);
             g2d.drawRect(xPos, yPos, 10, 10);
             g2d.dispose();
             g3d.dispose();
